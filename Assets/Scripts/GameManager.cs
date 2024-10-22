@@ -4,13 +4,24 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    [Header("Game Objects")]
     [SerializeField] private GameObject ballPrefab;
-    [SerializeField] private int throwCounter;
     [SerializeField] private Pin[] pins;
+    
+    [Header("Game Status")]
+    [SerializeField] private int throwCounter;
+    [SerializeField] private int maxAmountOfFrames;
+    [SerializeField] private int currentFrame;
+ 
+    [Header("Score Settings")]
+    [SerializeField] private int totalScore;
+    [SerializeField] private int firstThrowScore;
+    [SerializeField] private int secondThrowScore;
 
     // Start is called before the first frame update
     void Start()
     {
+        currentFrame = 1;
         StartThrow();
 
     }
@@ -18,7 +29,6 @@ public class GameManager : MonoBehaviour
     {
         throwCounter++;
 
-      
       
         Invoke("StartThrow", 3);
       
@@ -28,16 +38,33 @@ public class GameManager : MonoBehaviour
     {
         CheckForFallenPins();
 
-        if (throwCounter == 2)
+        if (throwCounter == 2 || firstThrowScore == 10)
         {
-            RepositionPins();
-            throwCounter = 0;
+           StartNewFrame();
         }
-
+        
+        if (currentFrame > maxAmountOfFrames)
+        {
+            return;
+        }
+        
+        
         Instantiate(ballPrefab, transform.position, transform.rotation);
         
     }
+    void StartNewFrame()
+    {
+            currentFrame++;
+            totalScore += firstThrowScore + secondThrowScore;
+            firstThrowScore = 0;
+            secondThrowScore = 0;
 
+            throwCounter = 0;
+
+            RepositionPins();
+            
+
+    }
     void RepositionPins()
     {
 
@@ -55,14 +82,22 @@ public class GameManager : MonoBehaviour
 
         foreach (Pin pin in pins)
         {
-            if (pin.IsPinFallen())
+            if (pin.IsPinFallen()&& pin.gameObject.activeInHierarchy)
             { 
                 score++;
                 pin.gameObject.SetActive(false);
 
             }
         }
-
+        if(throwCounter == 1)
+        {
+            firstThrowScore = score;
+        }  
+        else if(throwCounter == 2)
+        {
+            secondThrowScore = score;
+        }
+       
         Debug.Log(score);
     }
 

@@ -12,7 +12,7 @@ public class TestCode : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        InvokeRepeating("CreateNewPlatform", 5, 5); // Reapeating Spawn COULD CREATE PLATFORMS
     }
 
     // Update is called once per frame
@@ -20,39 +20,15 @@ public class TestCode : MonoBehaviour
     {
         transform.Translate(movingDirection * Time.deltaTime);
 
-        if (Input.GetMouseButton(0)) // 'true or false'
-        {
-           transform.Rotate(0, 0, 180 * Time.deltaTime);
-        }
+        
+       
+    }
+    void CreateNewPlatform()
+    {
+        // CREATE NEW PLATFORM FOR NEW POSITION
+             // LOOK INTO INSTANTIATE()
 
-        if (Input.GetMouseButton(1)) // 'true or false'
-        {
-            transform.Rotate(0, 0, -180 * Time.deltaTime);
-        }
-
-        if (Input.GetKey(KeyCode.D))
-        {
-            movingDirection.x = 1;
-        }
-
-        if (Input.GetKey(KeyCode.A))
-        {
-            movingDirection.x = -1;
-        }
-
-        transform.Translate(movingDirection * Time.deltaTime);
-        movingDirection.x = 0;
-
-        if (Time.realtimeSinceStartup > 5 && 3 > 0) // 'AND'
-        {
-
-        }
-
-        if (Time.realtimeSinceStartup > 5 || 3 > 0) // || 'OR'
-        {
-            //transform.Rotate(0, 0, 180 * Time.deltaTime);
-        }
-
-        //UnityEngine.Debug.Log(transform.position);
+        Destroy(gameObject);
+        Invoke("CreateNewPlatform", 4f);
     }
 }

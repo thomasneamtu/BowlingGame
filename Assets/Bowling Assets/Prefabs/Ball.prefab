@@ -179,7 +179,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: baac638a39a52c44596e8fe1f99b8c29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  throwStrength: 22
+  throwStrength: 23
   myRigidbody: {fileID: 3633941700178453309}
   aimingArrow: {fileID: 1292589139911141109}
 --- !u!1001 &3781575062708242569
