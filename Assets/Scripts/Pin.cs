@@ -5,6 +5,7 @@ using UnityEngine;
 public class Pin : MonoBehaviour
 {
     [SerializeField] private Rigidbody myRigidbody;
+    [SerializeField] private AudioSource hitSound;
     private Vector3 originalPosition;
     private Quaternion originalRotation;
 
@@ -15,6 +16,14 @@ public class Pin : MonoBehaviour
         originalRotation = transform.rotation;
     }
 
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.gameObject.CompareTag("Player"))
+        {
+            hitSound.pitch = Random.Range(0.8f, 1.2f);
+            hitSound.Play();
+        }
+    }
     public void ResetPinToOrigin()
     {
         myRigidbody.velocity = Vector3.zero;

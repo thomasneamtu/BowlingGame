@@ -47,6 +47,7 @@ public class GameManager : MonoBehaviour
         
         if (currentFrame > maxAmountOfFrames)
         {
+            ui.displayGameOverScreen(totalScore);
             return;
         }
         
@@ -56,15 +57,15 @@ public class GameManager : MonoBehaviour
     }
     void StartNewFrame()
     {
-            currentFrame++;
             totalScore += firstThrowScore + secondThrowScore;
             firstThrowScore = 0;
             secondThrowScore = 0;
 
             //Display Total Score
+            ui.updateTotalScoreOnFrame(currentFrame, totalScore);
 
             throwCounter = 0;
-
+            currentFrame++;
             RepositionPins();
             
 
@@ -97,13 +98,25 @@ public class GameManager : MonoBehaviour
         {
             firstThrowScore = score;
             ui.updateFirstThrowOnFrame(currentFrame, firstThrowScore);
+
+
+            if (firstThrowScore == 10)
+            {
+                ui.displayStrike();
+            }
         }  
         else if(throwCounter == 2)
         {
             secondThrowScore = score;
+            ui.updateSecondThrowOnFrame(currentFrame, secondThrowScore);
+
+
+            if (firstThrowScore + secondThrowScore == 10)
+            {
+                ui.displaySpare();
+            }
         }
-       
-        Debug.Log(score);
+      
     }
 
 }

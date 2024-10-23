@@ -10,7 +10,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float throwStrength;
     [SerializeField] private Rigidbody myRigidbody;
     [SerializeField] private GameObject aimingArrow;
-
+    [SerializeField] private AudioSource rollingSource;
     // Start is called before the first frame update
     void Start()
     {
@@ -45,17 +45,21 @@ public class PlayerController : MonoBehaviour
             wasThrown = true;
             aimingArrow.SetActive(false);
             myRigidbody.AddForce(aimingArrow.transform.forward * throwStrength, ForceMode.Impulse);
+            rollingSource.Play();
+            //play rolling sound
+
             Invoke("StopThrow", 10f);
         }
     }
 
     void OnTriggerEnter(Collider other)
     {
+        if(other.CompareTag("Respawn"))
         StopThrow();
     }
     void StopThrow()
     {
         FindObjectOfType<GameManager>().BallOnPit();
-        Destroy(gameObject, 3f);
+        Destroy(gameObject, 1f);
     }
 }
