@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject ballPrefab;
     [SerializeField] private Pin[] pins;
     [SerializeField] private UIManager ui;
+
     [Header("Game Status")]
     [SerializeField] private int throwCounter;
     [SerializeField] private int maxAmountOfFrames;
@@ -102,7 +103,7 @@ public class GameManager : MonoBehaviour
 
             if (firstThrowScore == 10)
             {
-                ui.displayStrike();
+                ui.displayStrike(currentFrame);
             }
         }  
         else if(throwCounter == 2)
@@ -113,7 +114,7 @@ public class GameManager : MonoBehaviour
 
             if (firstThrowScore + secondThrowScore == 10)
             {
-                ui.displaySpare();
+                ui.displaySpare(currentFrame);
             }
         }
       

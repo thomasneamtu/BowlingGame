@@ -25,6 +25,10 @@ public class PlayerController : MonoBehaviour
         MoveBall();
         ThrowingBall();
 
+        if (Input.GetKey(KeyCode.Escape))
+        { 
+            Application.Quit();
+        }
     }
 
 

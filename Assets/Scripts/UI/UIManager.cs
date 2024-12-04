@@ -46,14 +46,16 @@ public class UIManager : MonoBehaviour
         frameArray[currentFrameIndex - 1].SetTotalScore(totalScore);
     }
 
-    public void displayStrike()
+    public void displayStrike(int currentFrameIndex)
     {
+        frameArray[currentFrameIndex - 1].SetStrikeText();
         strikeImage.SetActive(true);
         Invoke("hideImages", 2);
     }
 
-    public void displaySpare()
+    public void displaySpare(int currentFrameIndex)
     {
+        frameArray[currentFrameIndex - 1].SetSpareText();
         spareImage.SetActive(true);
         Invoke("hideImages", 2);
     }
